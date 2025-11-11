@@ -281,7 +281,7 @@
         </h1>
         <p class="lead">WCA 台灣比賽與個人聯絡資源 🇹🇼</p>
       </div>
-          </div>
+    </div>
 
     <div class="tab-nav" id="tabNav">
         <button class="tab-button active" data-tab="competitions">🗓️ 比賽查詢</button>
@@ -493,7 +493,7 @@ document.addEventListener('keydown', (e) => {
 
 function renderItem(c){
   const div=document.createElement('div');
-  div.className='item';
+  div.className='item'; // <-- 這是恢復樣式的關鍵行
   
   div.addEventListener('click', () => showModal(c));
 
