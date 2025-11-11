@@ -3,7 +3,9 @@
 <html lang="zh-Hant">
 
 <head>
-
+  <body onload="startTime()">
+    <div id="clock"></div>
+  </body>
   <meta charset="utf-8" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -339,7 +341,17 @@
         padding: 15px 0;
 
     }
-
+#clock{
+  color:white;
+  font: 2em sans-serif; 
+  background: black; 
+  margin: 5px;
+  padding: 5px;
+  border: solid gray 2px; 
+  border-radius: 10px;
+  width:160px;
+  text-align:center;
+}
     .contact-group {
 
         margin-bottom: 25px;
@@ -1019,7 +1031,25 @@ function renderItem(c){
     }
 
     
+function startTime(){
+  var today = new Date();
+  var hh = today.getHours();
+  var mm = today.getMinutes();
+  var ss = today.getSeconds();
+  mm = checkTime(mm);
+  ss = checkTime(ss);
+  document.getElementById('clock').innerHTML = hh + ":" + mm + ":" + ss;
+  var timeoutId = setTimeout(startTime, 500);
+}
 
+function checkTime(i){
+  if(i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+    
     if(c.registration_open){
 
       lamp.className='light-lamp green';
