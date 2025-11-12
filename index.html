@@ -1,1409 +1,1054 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="zh-Hant">
 
 <head>
-  <meta charset="utf-8" />
-
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-  <title>TWCUBE網站</title>
-
-  <style>
-
-    :root{
-
-      --bg: #f8fafc; --card:#ffffff; --text:#0b1220; --accent:#06b6d4; --muted:#475569; --glass:rgba(11,17,32,0.03);
-
-      --radius:12px;
-
-      --discord-color: #5865F2; /* Discord 品牌色 */
-
-      --facebook-color: #1877F2; /* Facebook 品牌色 */
-
-      --warning: #facc15; /* 警告色 */
-
-    }
-
-    .dark{
-
-      --bg:#071024; --card:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-
-      --text:#e6eef6; --accent:#06b6d4; --muted:#94a3b8; --glass:rgba(255,255,255,0.03);
-
-    }
-
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial}
-
-    body{background:var(--bg);color:var(--text);display:flex;align-items:flex-start;justify-content:center;padding:24px}
-
-    .container{width:100%;max-width:980px}
-
-
-
-    /* 1. 卡片載入動畫 */
-
-    @keyframes fadeInSlideUp {
-
-        from { opacity: 0; transform: translateY(20px); }
-
-        to { opacity: 1; transform: translateY(0); }
-
-    }
-
-    
-
-    .card{
-
-        background:var(--card);
-
-        border:1px solid rgba(0,0,0,0.04);
-
-        padding:20px;
-
-        border-radius:var(--radius);
-
-        box-shadow:0 8px 30px rgba(2,6,23,0.08);
-
-        animation: fadeInSlideUp 0.6s ease-out forwards;
-
-        opacity: 0;
-
-        margin-bottom: 20px;
-
-    }
-
-    .dark .card{box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.04)}
-
-    h1{margin:0 0 8px;font-size:20px}
-
-    p.lead{margin:0 0 18px;color:var(--muted)}
-
-    
-
-    input,button,select{
-
-        padding:10px 12px;
-
-        border-radius:8px;
-
-        border:1px solid rgba(0,0,0,0.06);
-
-        background:transparent;
-
-        color:inherit;
-
-        font-size:14px;
-
-        transition: all 0.2s ease;
-
-    }
-
-    .dark input,.dark button,.dark select{border:1px solid rgba(255,255,255,0.04)}
-
-    input[type=text]{flex:1;min-width:200px}
-
-
-
-    input[type=text]:focus, select:focus {
-
-        border-color: var(--accent);
-
-        box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
-
-        outline: none;
-
-    }
-
-    button:hover {
-
-        background: var(--glass);
-
-        transform: translateY(-1px);
-
-    }
-
-    button:active {
-
-        transform: translateY(0);
-
-        box-shadow: none;
-
-    }
-
-
-
-    .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-
-    .results{margin-top:12px}
-
-    .year-group{margin-top:12px}
-
-    
-
-    /* 3. 年分標題的動畫 */
-
-    @keyframes slideInYear {
-
-        from { opacity: 0; transform: translateX(-10px); }
-
-        to { opacity: 1; transform: translateX(0); }
-
-    }
-
-    .year-title{
-
-        font-weight:700;margin:12px 0 6px;
-
-        display:flex;align-items:center;gap:8px;
-
-        animation: slideInYear 0.4s ease-out forwards; 
-
-        opacity: 0;
-
-    }
-
-
-
-    /* 2. 列表項目懸停效果 */
-
-    .item{
-
-        padding:12px;
-
-        border-radius:8px;
-
-        background:var(--glass);
-
-        border:1px solid rgba(0,0,0,0.03);
-
-        display:grid;
-
-        grid-template-columns:1fr auto;
-
-        gap:8px;
-
-        align-items:center;
-
-        margin-bottom:8px;
-
-        cursor: pointer; 
-
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-
-    }
-
-    .item:hover {
-
-        transform: translateY(-2px) scale(1.005); 
-
-        box-shadow: 0 10px 20px rgba(2,6,23,0.1); 
-
-        border-color: var(--accent); 
-
-    }
-
-    .dark .item{border:1px solid rgba(255,255,255,0.02)}
-
-    .dark .item:hover {
-
-        box-shadow: 0 10px 20px rgba(2,6,23,0.8);
-
-        border-color: var(--accent);
-
-    }
-
-
-
-    .meta{color:var(--muted);font-size:13px}
-
-    .link{color:var(--accent);text-decoration:none}
-
-    .small{font-size:13px;color:var(--muted)}
-
-    .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-
-    
-
-    .icon-btn{
-
-        width:36px; height:36px; border-radius:8px; display:inline-flex;
-
-        align-items:center; justify-content:center; cursor:pointer;
-
-        border:1px solid rgba(0,0,0,0.06); background:transparent;
-
-        transition: transform 0.2s ease, background 0.2s ease;
-
-    }
-
-    .dark .icon-btn{border:1px solid rgba(255,255,255,0.04)}
-
-    .icon-btn:active { transform: rotate(15deg); background: var(--glass); }
-
-
-
-    .countdown{margin-top:4px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
-
-    .light-lamp{width:10px;height:10px;border-radius:50%;display:inline-block}
-
-    .green{background:#22c55e}
-
-    .yellow{background:#eab308}
-
-    .red{background:#ef4444}
-
-    footer{margin-top:14px;color:var(--muted);font-size:13px}
-
-    
-
-    /* 4. 狀態訊息的淡入淡出 */
-
-    .status{
-
-        margin-top:8px; color:var(--muted); font-size:13px; opacity: 1;
-
-        transition: opacity 0.3s ease;
-
-    }
-
-    .status.fade-out { opacity: 0; }
-
-
-
-    /* 5. Modal 樣式 */
-
-    .modal-backdrop {
-
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-
-      background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); z-index: 1000;
-
-      display: none; opacity: 0; transition: opacity 0.3s ease;
-
-      justify-content: center; align-items: center;
-
-    }
-
-    .modal-content {
-
-      background: var(--card); padding: 30px; border-radius: var(--radius);
-
-      width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-
-      transform: scale(0.9); transition: transform 0.3s ease;
-
-    }
-
-    .modal-backdrop.is-open { display: flex; opacity: 1; }
-
-    .modal-backdrop.is-open .modal-content { transform: scale(1); }
-
-    .dark .modal-content{box-shadow: 0 10px 40px rgba(0,0,0,0.8);}
-
-    .modal-title {font-size: 24px; margin-top: 0; margin-bottom: 15px;}
-
-    .modal-info div {margin-bottom: 8px; font-size: 15px; line-height: 1.4;}
-
-    .modal-info strong {font-weight: 600; color: var(--text);}
-
-    .modal-close-btn {
-
-      position: absolute; top: 15px; right: 15px; background: none; border: none;
-
-      font-size: 24px; cursor: pointer; color: var(--muted); transition: color 0.2s;
-
-    }
-
-    .modal-close-btn:hover {color: var(--text);}
-
-    .modal-link-btn {
-
-        display: block; width: 100%; text-align: center; margin-top: 20px;
-
-        padding: 10px; background: var(--accent); color: white; border-radius: 8px;
-
-        text-decoration: none; font-weight: 600; transition: background-color 0.2s ease;
-
-    }
-
-    .modal-link-btn:hover { background: #0097a7; }
-
-
-
-    /* 6. 聯絡資訊區塊樣式 - 突出個人資訊 */
-
-    .contact-panel {
-
-        padding: 15px 0;
-
-    }
-#clock{
-  color:white;
-  font: 2em sans-serif; 
-  background: black; 
-  margin: 5px;
-  padding: 5px;
-  border: solid gray 2px; 
-  border-radius: 10px;
-  width:160px;
-  text-align:center;
-}
-    .contact-group {
-
-        margin-bottom: 25px;
-
-        padding: 20px;
-
-        border-radius: var(--radius);
-
-        background: var(--glass);
-
-        border: 2px solid var(--accent); /* 突出邊框 */
-
-        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1);
-
-    }
-
-    .dark .contact-group {
-
-        border: 2px solid var(--accent);
-
-        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
-
-    }
-
-    .contact-title {
-
-        font-size: 20px;
-
-        font-weight: 700;
-
-        margin-top: 0;
-
-        margin-bottom: 15px;
-
-        color: var(--accent);
-
-    }
-
-    .info-item {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 12px;
-
-        margin-bottom: 15px;
-
-        font-size: 16px;
-
-        padding: 8px 0;
-
-        border-bottom: 1px dashed rgba(0,0,0,0.1);
-
-    }
-
-    .dark .info-item {
-
-        border-bottom: 1px dashed rgba(255,255,255,0.1);
-
-    }
-
-    .info-item:last-child {
-
-        margin-bottom: 0;
-
-        border-bottom: none;
-
-    }
-
-    .info-item i {
-
-        font-size: 20px;
-
-        color: var(--muted);
-
-    }
-
-    .info-item a {
-
-        color: var(--text);
-
-        text-decoration: none;
-
-        font-weight: 600;
-
-        word-break: break-all;
-
-    }
-
-    .info-item a:hover {
-
-        color: var(--accent);
-
-    }
-
-
-
-    /* 9. 新增的備註樣式 */
-
-    .note-box {
-
-        margin-top: 20px;
-
-        padding: 15px;
-
-        border-radius: 8px;
-
-        background: rgba(250, 204, 21, 0.1); /* 淺黃色背景 */
-
-        border-left: 5px solid var(--warning);
-
-        color: var(--text);
-
-        font-size: 14px;
-
-        font-weight: 500;
-
-        line-height: 1.5;
-
-    }
-
-    .dark .note-box {
-
-        background: rgba(250, 204, 21, 0.05);
-
-    }
-
-    
-
-    /* 7. Tab 導航樣式 */
-
-    .tab-nav { display: flex; gap: 5px; margin-bottom: 15px; }
-
-    .tab-button {
-
-        padding: 10px 15px; border: none; background: var(--glass);
-
-        color: var(--muted); font-weight: 600; cursor: pointer;
-
-        border-radius: var(--radius) var(--radius) 0 0;
-
-        border-bottom: 3px solid transparent; transition: all 0.2s ease;
-
-    }
-
-    .tab-button.active {
-
-        background: var(--card); color: var(--accent);
-
-        border-bottom: 3px solid var(--accent);
-
-        box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-
-    }
-
-
-
-    /* 8. Tab 內容樣式 */
-
-    .tab-content {
-
-        display: none;
-
-        min-height: 300px;
-
-    }
-
-    .tab-content.active { display: block; }
-
-  </style>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C0A/Q3w7aN33yFz5q81Hk+f/8x/vU4v9i93cT3N2Jz4XyFq7O7Qp5K+fQ95TzE8P/vA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TWCUBE網站</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C0A/Q3w7aN33yFz5q81Hk+f/8x/vU4v9i93cT3N2Jz4XyFq7O7Qp5K+fQ95TzE8P/vA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0b1220;
+            --accent: #06b6d4;
+            --muted: #475569;
+            --glass: rgba(11, 17, 32, 0.03);
+            --radius: 12px;
+            --warning: #facc15;
+            --shadow: 0 8px 30px rgba(2, 6, 23, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg: #071024;
+            --card: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            --text: #e6eef6;
+            --accent: #06b6d4;
+            --muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+        }
+
+        /* Base styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+        }
+
+        /* Card & Animation */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            animation: fadeInSlideUp 0.6s ease-out forwards;
+            opacity: 0;
+            margin-bottom: 20px;
+        }
+
+        [data-theme="dark"] .card {
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        p.lead {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        /* Controls & Inputs */
+        input,
+        button,
+        select {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: transparent;
+            color: inherit;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] input,
+        [data-theme="dark"] button,
+        [data-theme="dark"] select {
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        input[type=text]:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+            outline: none;
+        }
+
+        button:hover {
+            background: var(--glass);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        /* Icon Buttons */
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: transparent;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        [data-theme="dark"] .icon-btn {
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .icon-btn:active {
+            transform: rotate(15deg);
+            background: var(--glass);
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .tab-button {
+            padding: 10px 15px;
+            border: none;
+            background: var(--glass);
+            color: var(--muted);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius) var(--radius) 0 0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            margin-bottom: -1px;
+        }
+
+        .tab-button.active {
+            background: var(--card);
+            color: var(--accent);
+            border: 1px solid var(--glass);
+            border-bottom: 1px solid var(--card);
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        [data-theme="dark"] .tab-button.active {
+            border-bottom: 1px solid var(--bg);
+        }
+
+        .tab-content {
+            display: none;
+            min-height: 300px;
+            padding-top: 5px;
+            /* 讓內容區塊看起來是從 Tab 按鈕下面開始的 */
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* WCA List Styles */
+        .item {
+            padding: 12px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-2px) scale(1.005);
+            box-shadow: 0 10px 20px rgba(2, 6, 23, 0.1);
+            border-color: var(--accent);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        /* Timer Styles */
+        #timerContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes timer-digit-pop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes button-press-feedback {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+            50% {
+                transform: scale(0.99);
+                box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+        }
+
+        #timerDisplay {
+            font-size: 80px;
+            font-weight: 200;
+            color: var(--text);
+            margin: 0 0 10px 0;
+            font-family: monospace;
+            transition: color 0.1s ease-out, transform 0.05s ease-out;
+        }
+
+        #timerDisplay.ready {
+            color: #22c55e;
+            /* 綠色 */
+        }
+
+        #timerStatus {
+            color: var(--muted);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        #timerStatus.fade-out {
+            opacity: 0;
+        }
+
+        #timerContainer.key-pressed {
+            animation: button-press-feedback 0.3s ease-out forwards;
+        }
+
+        /* Score List Styles */
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            background: var(--glass);
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        .time-item:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .time-item .rank {
+            color: var(--accent);
+            font-weight: 700;
+            width: 30px;
+        }
+
+        .time-item .value {
+            flex-grow: 1;
+            font-size: 18px;
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .time-item.best {
+            border: 1px solid var(--warning);
+            background: rgba(250, 204, 21, 0.1);
+        }
+
+        .clear-btn-red {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .clear-btn-red:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Modal Styles (加入黃色) */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-backdrop.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--card);
+            padding: 30px;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            /* 新增黃色邊框和陰影 */
+            border: 3px solid var(--warning);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 15px var(--warning);
+        }
+
+        .modal-backdrop.is-open .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--glass);
+            border: 1px solid var(--muted);
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--muted);
+            line-height: 1;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--warning);
+            /* 標題文字也設為黃色 */
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--glass);
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+                <div>
+                    <h1>TWCUBE網站</h1>
+                    <p class="lead">TWCUBE是一位台灣的學生架設的網站</p>
+                </div>
+                <div class="toolbar">
+                    <div title="淺色主題（太陽）" id="sunBtn" class="icon-btn">☀️</div>
+                    <div title="深色主題（月亮）" id="moonBtn" class="icon-btn">🌙</div>
+                </div>
+            </div>
 
-      <div>
+            <div class="tab-nav" id="tabNav">
+                <button class="tab-button active" data-tab="competitions">🗓️ 比賽查詢</button>
+                <button class="tab-button" data-tab="timer">⏱️ 計時器</button>
+                <button class="tab-button" data-tab="contact">📞 聯絡資訊</button>
+            </div>
 
-        <h1>TWCUBE網站</h1>
-
-        <p class="lead">WCA 台灣比賽 🇹🇼</p>
-
-      </div>
-
-      <div class="toolbar">
-
-        <div title="白素主題（太陽）" id="sunBtn" class="icon-btn">☀️</div>
-
-        <div title="深色主題（月亮）" id="moonBtn" class="icon-btn">🌙</div>
-
-      </div>
-
-    </div>
-
-
-
-    <div class="tab-nav" id="tabNav">
-
-        <button class="tab-button active" data-tab="competitions">🗓️ 比賽查詢</button>
-
-        <button class="tab-button" data-tab="contact">📞 聯絡資訊</button>
-
-    </div>
-
-    
-
-    <div id="competitionsPanel" class="tab-content active">
-
-        <h2>WCA 賽事列表 (台灣)</h2>
-
-        <div class="controls">
-
-          <input id="q" type="text" placeholder="搜尋名稱 / 城市 / 年份 / 代碼（模糊搜尋）" />
-
-          <button id="clearBtn" type="button">清除</button>
-
-        </div>
-
-
-
-        <div id="status" class="status">載入中…</div>
-
-        <div id="results" class="results"></div>
-
-
-
-        <footer>
-
-          小提醒：點擊比賽可查看詳細資訊，倒數以比賽開始日為基準。
-
-        </footer>
-
-    </div>
-
-
-
-    <div id="contactPanel" class="tab-content">
-
-        <h2>建立者個人聯絡方式</h2>
-
-        
-
-        <div class="contact-panel">
-
-
-
-            <div class="contact-group">
-
-                <div class="contact-title">網站建立與維護者</div>
-
-                
-
-                <div class="info-item">
-
-                    <i class="fab fa-discord" style="color: #5865F2;"></i>
-
-                    <span>Discord 邀請連結：
-
-                        <a href="https://discord.gg/y2gxYtmXp7" target="_blank">
-
-                            https://discord.gg/y2gxYtmXp7
-
-                        </a>
-
-                    </span>
-
+            <div id="competitionsPanel" class="tab-content active">
+                <h2>WCA 賽事列表 (台灣)</h2>
+                <div class="controls">
+                    <input id="q" type="text" placeholder="搜尋名稱 / 城市 / 年份 / 代碼（模糊搜尋）" />
+                    <button id="clearBtn" type="button">清除</button>
                 </div>
 
-                
+                <div id="status" class="status">載入中…</div>
+                <div id="results" class="results"></div>
 
-                <div class="info-item">
+                <footer>
+                    <p class="small meta" style="margin-top: 15px;">
+                        小提醒：點擊比賽可查看詳細資訊，倒數以比賽開始日為基準。
+                    </p>
+                </footer>
+            </div>
 
-                    <i class="far fa-envelope" style="color: #ea4335;"></i>
+            <div id="timerPanel" class="tab-content">
 
-                    <span>Gmail 電子郵件：
-
-                        <a href="mailto:swxhzop@gmail.com">
-
-                            swxhzop@gmail.com
-
-                        </a>
-
-                    </span>
-
+                <div id="timerContainer">
+                    <div id="timerDisplay">0.00</div>
+                    <div id="timerStatus" class="meta small">按下 **空白鍵** 開始 / 停止計時</div>
                 </div>
 
-                
+                <div id="scorePanel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h2>歷史成績 (最新 10 筆)</h2>
+                        <button id="clearTimesBtn" type="button" class="clear-btn-red" title="清除所有成績" style="width: auto; padding: 0 12px;">
+                            🗑️ 清除所有
+                        </button>
+                    </div>
 
-                <div class="note-box">
+                    <div id="timesList">
+                        <div class="small meta" style="text-align: center;">尚無成績紀錄。</div>
+                    </div>
 
-                    ⚠️ 備註：本站維護者為一名學生，因此回覆可能會比較慢。<br>
-
-                    **建議使用 Discord 聯絡，會比較快速得到回覆。**
-
+                    <div id="statsSummary" class="small meta" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--glass);">
+                        總成績筆數：0
+                    </div>
                 </div>
 
             </div>
 
+            <div id="contactPanel" class="tab-content">
+                <h2>建立者個人聯絡方式</h2>
 
+                <div class="contact-panel">
+                    <div class="contact-group" style="padding: 20px; border-radius: var(--radius); background: var(--glass);">
+                        <div class="contact-title" style="font-weight: 600; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid var(--glass); padding-bottom: 5px;">網站建立與維護者</div>
 
-            <p class="small" style="margin-top: 20px; color: var(--muted);">
+                        <div class="info-item" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-discord" style="color: #5865F2;"></i>
+                            <span>Discord 邀請連結：<a href="https://discord.gg/y2gxYtmXp7" target="_blank" style="color: var(--accent); text-decoration: none;">https://discord.gg/y2gxYtmXp7</a></span>
+                        </div>
 
-                如果您對本網站有任何建議、合作意向或技術問題，歡迎透過以上方式聯絡。
+                        <div class="info-item" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <i class="far fa-envelope" style="color: #ea4335;"></i>
+                            <span>Gmail 電子郵件：<a href="mailto:swxhzop@gmail.com" style="color: var(--accent); text-decoration: none;">swxhzop@gmail.com</a></span>
+                        </div>
 
-            </p>
+                        <div class="note-box" style="margin-top: 15px; padding: 10px; background: rgba(250, 204, 21, 0.1); border-radius: 6px; border-left: 3px solid var(--warning); font-size: 13px;">
+                            ⚠️ 備註：本站維護者為一名學生，因此回覆可能會比較慢。<br>
+                            **建議使用 Discord 聯絡，會比較快速得到回覆。**
+                        </div>
+                    </div>
 
-            
+                    <p class="small" style="margin-top: 20px; color: var(--muted);">
+                        如果您對本網站有任何建議、合作意向或技術問題，歡迎透過以上方式聯絡。
+                    </p>
+
+                </div>
+            </div>
+
 
         </div>
+    </div>
 
+    <div id="compModalBackdrop" class="modal-backdrop">
+        <div id="compModal" class="modal-content" style="position: relative;">
+            <button id="modalCloseBtn" class="modal-close-btn" title="關閉視窗">×</button>
+            <h2 id="modalTitle" class="modal-title">比賽名稱</h2>
+            <div id="modalInfo" class="modal-info"></div>
+            </div>
     </div>
 
 
-
-  </div>
-
-</div>
-
-
-
-<div id="compModalBackdrop" class="modal-backdrop">
-
-  <div id="compModal" class="modal-content" style="position: relative;">
-
-    <button id="modalCloseBtn" class="modal-close-btn" title="關閉視窗">×</button>
-
-    <h2 id="modalTitle" class="modal-title">比賽名稱</h2>
-
-    <div id="modalInfo" class="modal-info">
-
-      </div>
-
-    <a id="modalLink" class="modal-link-btn" href="#" target="_blank">前往 WCA 詳細頁面 →</a>
-
-  </div>
-
-</div>
-
-
-
-
-
-<script>
-
-const API_BASE_COMP='https://www.worldcubeassociation.org/api/v0/competitions';
-
-
-
-// WCA 項目名稱映射
-
-const WCA_EVENTS = {
-
-    '333': '三階 (3x3x3)', '222': '二階 (2x2x2)', '444': '四階 (4x4x4)', '555': '五階 (5x5x5)',
-
-    '666': '六階 (6x6x6)', '777': '七階 (7x7x7)', '333bf': '三階盲解', '333fm': '最少步',
-
-    '333oh': '單手', 'minx': '五魔方', 'pyram': '金字塔', 'sq1': 'SQ-1',
-
-    'clock': '魔錶 (Clock)', 'skewb': '斜轉 (Skewb)', '444bf': '四階盲解', '555bf': '五階盲解'
-
-};
-
-
-
-// 比賽查詢 DOM
-
-const qEl=document.getElementById('q');
-
-const resultsEl=document.getElementById('results');
-
-const statusEl=document.getElementById('status');
-
-const clearBtn=document.getElementById('clearBtn');
-
-
-
-// Tab DOM
-
-const tabNavEl = document.getElementById('tabNav');
-
-const competitionsPanelEl = document.getElementById('competitionsPanel');
-
-const contactPanelEl = document.getElementById('contactPanel'); // 聯絡資訊面板
-
-
-
-// 主題 DOM
-
-const sunBtn=document.getElementById('sunBtn');
-
-const moonBtn=document.getElementById('moonBtn');
-
-
-
-// Modal DOM
-
-const modalBackdrop = document.getElementById('compModalBackdrop');
-
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-
-const modalTitle = document.getElementById('modalTitle');
-
-const modalInfo = document.getElementById('modalInfo');
-
-const modalLink = document.getElementById('modalLink');
-
-
-
-
-
-// ----------------------------------------------------------------
-
-// --- Tab & 通用功能 ---
-
-// ----------------------------------------------------------------
-
-
-
-function switchTab(targetTab) {
-
-    // 移除所有 Tab 按鈕和內容的 active 狀態
-
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-
-
-    // 設定目標 Tab 為 active
-
-    const targetBtn = document.querySelector(`.tab-button[data-tab="${targetTab}"]`);
-
-    if (targetBtn) targetBtn.classList.add('active');
-
-
-
-    if (targetTab === 'competitions') {
-
-        competitionsPanelEl.classList.add('active');
-
-        statusEl.textContent = cache ? `已載入 ${cache.length} 筆比賽資料。` : '載入中…';
-
-    } else if (targetTab === 'contact') {
-
-        contactPanelEl.classList.add('active');
-
-    }
-
-}
-
-
-
-tabNavEl.addEventListener('click', (e) => {
-
-    if (e.target.classList.contains('tab-button')) {
-
-        switchTab(e.target.dataset.tab);
-
-    }
-
-});
-
-
-
-// ----------------------------------------------------------------
-
-// --- 比賽查詢功能 (Modal/Countdown) ---
-
-// ----------------------------------------------------------------
-
-
-
-function formatDateRange(start,end){
-
-  try{
-
-    const s=new Date(start).toLocaleDateString();
-
-    const e=new Date(end).toLocaleDateString();
-
-    return s===e?s:`${s} — ${e}`;
-
-  }catch(e){return start||''}
-
-}
-
-
-
-async function showModal(c) {
-
-    modalTitle.textContent = c.name;
-
-    modalInfo.innerHTML = `
-
-        <div><strong>地點：</strong> ${c.city}, ${c.country_name}</div>
-
-        <div><strong>代碼：</strong> ${c.id}</div>
-
-        <div><strong>日期：</strong> ${formatDateRange(c.start_date, c.end_date)}</div>
-
-        <div><strong>主辦方：</strong> ${c.organizer || c.organizer_name || '-'}</div>
-
-        <div><strong>狀態：</strong> ${c.registration_open ? '✅ 報名開放中' : '❌ 報名尚未開放'}</div>
-
-        <div id="modalRecordStatus" style="margin-top: 15px; border-top: 1px solid var(--glass); padding-top: 10px;">
-
-          <strong>紀錄機會：</strong> 載入中...
-
-        </div>
-
-    `;
-
-    modalLink.href = `https://www.worldcubeassociation.org/competitions/${c.id}`;
-
-    
-
-    // 顯示 Modal
-
-    modalBackdrop.classList.add('is-open');
-
-    document.body.style.overflow = 'hidden';
-
-
-
-    // *** Google 搜索判斷紀錄機會 ***
-
-    const recordStatusEl = document.getElementById('modalRecordStatus');
-
-    
-
-    let statusText = '🏆 <strong>國家紀錄 (NR)</strong>：可挑戰'; 
-
-    let hasWR = false;
-
-
-
-    const query = `${c.name} WCA competition type`; 
-
-    // 呼叫 Google 搜尋工具
-
-    try {
-
-        const searchResult = await google.search([query]);
-
-        const snippet = searchResult.snippets.map(s => s.toLowerCase()).join(' ');
-
-
-
-        if (snippet.includes('world championship') || snippet.includes('wr') || c.name.toLowerCase().includes('world championship')) {
-
-            hasWR = true;
-
-        } else if (snippet.includes('continental championship') || snippet.includes('asian championship') || snippet.includes('cr')) {
-
-            statusText += '<br>🌎 <strong>洲際紀錄 (CR)</strong>：可挑戰';
-
+    <script>
+        // --- 核心 DOM 元素 ---
+        const sunBtn = document.getElementById('sunBtn');
+        const moonBtn = document.getElementById('moonBtn');
+        const qEl = document.getElementById('q');
+        const resultsEl = document.getElementById('results');
+        const statusEl = document.getElementById('status');
+        const clearBtn = document.getElementById('clearBtn');
+        const tabNavEl = document.getElementById('tabNav');
+        const competitionsPanelEl = document.getElementById('competitionsPanel');
+        const timerPanelEl = document.getElementById('timerPanel');
+        const contactPanelEl = document.getElementById('contactPanel');
+        const modalBackdrop = document.getElementById('compModalBackdrop');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalInfo = document.getElementById('modalInfo');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerStatus = document.getElementById('timerStatus');
+        const timerContainer = document.getElementById('timerContainer');
+        const timesListEl = document.getElementById('timesList');
+        const clearTimesBtn = document.getElementById('clearTimesBtn');
+        const statsSummaryEl = document.getElementById('statsSummary');
+
+        // --- 全局變數 ---
+        let cache = null;
+        let savedTimes = [];
+        let startTime;
+        let updatedTime;
+        let difference = 0;
+        let tInterval;
+        let running = false;
+        let readyToStart = false; // true: 已達 2s, 'pending': 長按中, false: 初始狀態
+        let statusTimeout;
+        let pressStartTime = 0; // 記錄空白鍵按下的時間戳
+        let pressTimer = null; // 用於計時 2 秒的計時器 ID
+        const REQUIRED_PRESS_TIME = 2000; // 2000 毫秒 = 2 秒
+
+
+        // ----------------------------------------------------------------
+        // --- Tab & 主題功能 ---
+        // ----------------------------------------------------------------
+
+        function switchTab(targetTab) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            const targetBtn = document.querySelector(`.tab-button[data-tab="${targetTab}"]`);
+            if (targetBtn) targetBtn.classList.add('active');
+
+            if (targetTab === 'competitions') {
+                competitionsPanelEl.classList.add('active');
+            } else if (targetTab === 'timer') {
+                timerPanelEl.classList.add('active');
+                if (!running && readyToStart !== 'pending') {
+                    setTimerStatus('按下 **空白鍵** 2 秒後開始計時');
+                }
+            } else if (targetTab === 'contact') {
+                contactPanelEl.classList.add('active');
+            }
+        }
+
+        tabNavEl.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-button')) {
+                switchTab(e.target.dataset.tab);
+            }
+        });
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('wca_theme', theme);
+        }
+
+        sunBtn.addEventListener('click', () => {
+            setTheme('light');
+        });
+        moonBtn.addEventListener('click', () => {
+            setTheme('dark');
+        });
+
+        const initialTheme = localStorage.getItem('wca_theme') || 'light';
+        setTheme(initialTheme);
+
+
+        // ----------------------------------------------------------------
+        // --- WCA 比賽查詢邏輯 (模擬) ---
+        // ----------------------------------------------------------------
+
+        function formatDateRange(start, end) {
+            try {
+                const s = new Date(start).toLocaleDateString('zh-TW');
+                const e = new Date(end).toLocaleDateString('zh-TW');
+                return s === e ? s : `${s} — ${e}`;
+            } catch (e) {
+                return start || ''
+            }
+        }
+
+        function showModal(c) {
+            modalTitle.textContent = c.name;
+            modalInfo.innerHTML = `
+                <div style="margin-bottom: 10px;"><strong>地點：</strong> ${c.city}, ${c.country_name}</div>
+                <div style="margin-bottom: 20px;"><strong>日期：</strong> ${formatDateRange(c.start_date, c.end_date)}</div>
+                <div class="small" style="font-style: italic;">🏆 <strong>備註：</strong> 點擊比賽可前往 WCA 官方頁面查看詳細資訊。</div>
+            `;
+            modalBackdrop.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalBackdrop.classList.contains('is-open')) closeModal();
+        });
+
+
+        function renderItem(c) {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.addEventListener('click', () => {
+                showModal(c)
+            });
+
+            const left = document.createElement('div');
+            left.innerHTML = `<div style="font-weight:600">${c.name}</div>
+                <div class="meta">${c.city||'-'}, ${c.country_name||'-'} • ${formatDateRange(c.start_date,c.end_date)}</div>
+                <div class="small">主辦：${c.organizer||c.organizer_name||'-'}</div>`;
+
+            const cdDiv = document.createElement('div');
+            cdDiv.className = 'countdown';
+            const start = new Date(c.start_date);
+            const now = new Date();
+
+            if (now > start) {
+                cdDiv.innerHTML = '<span style="color: #dc2626; font-weight: bold;">已結束</span>';
+            } else {
+                const diff = start - now;
+                const d = Math.floor(diff / 86400000);
+                cdDiv.innerHTML = `<span style="color: #22c55e; font-weight: bold;">${d}天後開始</span>`;
+            }
+
+            div.appendChild(left);
+            div.appendChild(cdDiv);
+            return div;
+        }
+
+        function groupByYear(data) {
+            const groups = {};
+            data.forEach(c => {
+                const year = c.start_date ? new Date(c.start_date).getFullYear() : '未知';
+                if (!groups[year]) groups[year] = [];
+                groups[year].push(c);
+            });
+            const sortedYears = Object.keys(groups).sort((a, b) => b - a);
+            return {
+                groups,
+                sortedYears
+            };
+        }
+
+        async function fetchAllTaiwanCompetitions() {
+            // 使用模擬數據
+            statusEl.textContent = '使用模擬數據：台灣 WCA 賽事';
+            return [
+                {
+                    id: 'TaiwanChampionship2025',
+                    name: '2025 台灣魔方錦標賽',
+                    city: 'Taipei',
+                    country_name: 'Taiwan',
+                    start_date: '2025-08-15',
+                    end_date: '2025-08-17',
+                    organizer_name: 'TWCUBE',
+                    registration_open: true
+                },
+                {
+                    id: 'KaohsiungOpen2024',
+                    name: '高雄夏季公開賽',
+                    city: 'Kaohsiung',
+                    country_name: 'Taiwan',
+                    start_date: '2024-06-22',
+                    end_date: '2024-06-23',
+                    organizer_name: 'WCA TW',
+                    registration_open: false
+                },
+                {
+                    id: 'TainanWinter2023',
+                    name: '台南冬季挑戰賽',
+                    city: 'Tainan',
+                    country_name: 'Taiwan',
+                    start_date: '2023-12-10',
+                    end_date: '2023-12-10',
+                    organizer_name: 'Local Group',
+                    registration_open: false
+                }
+            ];
+        }
+
+        function renderGroups(groupsObj, q) {
+            Array.from(resultsEl.querySelectorAll('.item')).forEach(item => {
+                if (item.cleanup) item.cleanup();
+            });
+
+            resultsEl.innerHTML = '';
+            const {
+                groups,
+                sortedYears
+            } = groupsObj;
+            sortedYears.forEach((year, yearIndex) => {
+                const yearDiv = document.createElement('div');
+                yearDiv.className = 'year-group';
+                const title = document.createElement('div');
+                title.className = 'year-title';
+                title.innerHTML = `📅 ${year} 年`;
+                title.style.animationDelay = `${yearIndex * 0.1}s`;
+                yearDiv.appendChild(title);
+                const list = document.createElement('div');
+                const items = groups[year].filter(c => {
+                    if (!q) return true;
+                    const ql = q.toLowerCase();
+                    return (c.name && c.name.toLowerCase().includes(ql)) || (c.city && c.city.toLowerCase().includes(ql)) || (c.id && c.id.toLowerCase().includes(ql)) || (c.start_date && new Date(c.start_date).getFullYear().toString().includes(ql));
+                });
+                if (items.length === 0) {
+                    const none = document.createElement('div');
+                    none.className = 'small meta';
+                    none.textContent = '（無符合項目）';
+                    list.appendChild(none);
+                } else {
+                    items.sort((a, b) => new Date(b.start_date) - new Date(a.start_date)).forEach(c => list.appendChild(renderItem(c)));
+                }
+                yearDiv.appendChild(list);
+                resultsEl.appendChild(yearDiv);
+            });
         }
 
 
+        let searchTimer = null;
 
-        if (hasWR) {
+        function liveSearch() {
+            const q = qEl.value.trim();
+            if (!cache) return;
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(async () => {
+                statusEl.classList.add('fade-out');
+                await new Promise(r => setTimeout(r, 300));
 
-            statusText = '👑 <strong>世界紀錄 (WR)</strong>：可挑戰<br>' + statusText;
-
+                renderGroups(groupByYear(cache), q);
+                const filteredCount = Array.from(resultsEl.querySelectorAll('.item')).length;
+                statusEl.textContent = `已過濾出 ${filteredCount} 筆結果（搜尋：\"${q||'全部'}\"）`;
+                statusEl.classList.remove('fade-out');
+            }, 180);
         }
 
-
-
-        recordStatusEl.innerHTML = `<strong>紀錄機會：</strong><br>${statusText}`;
-
-
-
-    } catch (e) {
-
-        recordStatusEl.innerHTML = `<strong>紀錄機會：</strong><br>${statusText} <span class="small">(詳細資訊載入失敗)</span>`;
-
-    }
-
-}
-
-
-
-function closeModal() {
-
-    modalBackdrop.classList.remove('is-open');
-
-    document.body.style.overflow = ''; 
-
-}
-
-
-
-// 關閉 Modal 的事件監聽器
-
-modalCloseBtn.addEventListener('click', closeModal);
-
-modalBackdrop.addEventListener('click', (e) => {
-
-    if (e.target === modalBackdrop) {
-
-        closeModal();
-
-    }
-
-});
-
-document.addEventListener('keydown', (e) => {
-
-    if (e.key === 'Escape' && modalBackdrop.classList.contains('is-open')) {
-
-        closeModal();
-
-    }
-
-});
-
-
-
-
-
-function renderItem(c){
-
-  const div=document.createElement('div');
-
-  div.className='item';
-
-  
-
-  div.addEventListener('click', () => showModal(c));
-
-
-
-  const left=document.createElement('div');
-
-  left.innerHTML=`<div style="font-weight:600">${c.name}</div>
-
-  <div class="meta">${c.city||'-'}, ${c.country_name||'-'} • ${formatDateRange(c.start_date,c.end_date)}</div>
-
-  <div class="small">主辦：${c.organizer||c.organizer_name||'-'}</div>`;
-
-
-
-  const cdDiv=document.createElement('div');
-
-  cdDiv.className='countdown';
-
-  const lamp=document.createElement('span');
-
-  lamp.className='light-lamp';
-
-  const start=new Date(c.start_date);
-
-  const end=new Date(c.end_date);
-
-
-
-  function updateCountdown(){
-
-    const now=new Date();
-
-    if (now > end) {
-
-      lamp.className='light-lamp red';
-
-      cdDiv.textContent='比賽已結束';
-
-      return;
-
-    }
-
-    
-function startTime(){
-  var today = new Date();
-  var hh = today.getHours();
-  var mm = today.getMinutes();
-  var ss = today.getSeconds();
-  mm = checkTime(mm);
-  ss = checkTime(ss);
-  document.getElementById('clock').innerHTML = hh + ":" + mm + ":" + ss;
-  var timeoutId = setTimeout(startTime, 500);
-}
-
-function checkTime(i){
-  if(i < 10) {
-    i = "0" + i;
-  }
-  return i;
-}
-
-    
-    if(c.registration_open){
-
-      lamp.className='light-lamp green';
-
-      const diff=start-now;
-
-      if(diff>0){
-
-        const d=Math.floor(diff/86400000);
-
-        const h=Math.floor(diff%86400000/3600000);
-
-        const m=Math.floor(diff%3600000/60000);
-
-        const s=Math.floor(diff%60000/1000);
-
-        cdDiv.textContent=`距離比賽開始：${d}天 ${h}時 ${m}分 ${s}秒`;
-
-      }else{
-
-        lamp.className='light-lamp green';
-
-        cdDiv.textContent='比賽進行中';
-
-      }
-
-    }else{
-
-      const diff=start-now;
-
-      if(diff>0){
-
-        if(diff<3*86400000){lamp.className='light-lamp yellow';}
-
-        else{lamp.className='light-lamp red';} 
-
-        
-
-        const d=Math.floor(diff/86400000);
-
-        const h=Math.floor(diff%86400000/3600000);
-
-        const m=Math.floor(diff%3600000/60000);
-
-        const s=Math.floor(diff%60000/1000);
-
-        cdDiv.textContent=`距離比賽開始：${d}天 ${h}時 ${m}分 ${s}秒`;
-
-      }else{
-
-        lamp.className='light-lamp red';
-
-        cdDiv.textContent='報名已截止/已結束';
-
-      }
-
-    }
-
-    cdDiv.prepend(lamp);
-
-  }
-
-  updateCountdown();
-
-  const intervalId = setInterval(updateCountdown, 1000);
-
-  
-
-  div.cleanup = () => clearInterval(intervalId);
-
-
-
-
-
-  div.appendChild(left);
-
-  div.appendChild(cdDiv);
-
-  
-
-  const right=document.createElement('div');
-
-  right.style.width = '100px'; 
-
-  right.style.textAlign = 'right';
-
-  right.innerHTML=`<span class="small" style="color:var(--accent); display:block;">點擊看詳情</span>`; 
-
-  div.appendChild(right);
-
-  
-
-  return div;
-
-}
-
-
-
-function groupByYear(data){
-
-  const groups={};
-
-  data.forEach(c=>{
-
-    const year=c.start_date?new Date(c.start_date).getFullYear():'未知';
-
-    if(!groups[year]) groups[year]=[];
-
-    groups[year].push(c);
-
-  });
-
-  const sortedYears=Object.keys(groups).sort((a,b)=>b-a);
-
-  return {groups,sortedYears};
-
-}
-
-
-
-async function fetchAllTaiwanCompetitions(){
-
-  statusEl.classList.add('fade-out');
-
-  await new Promise(r => setTimeout(r, 300));
-
-
-
-  statusEl.textContent='正在從 WCA 取得台灣比賽（逐頁抓取…）';
-
-  statusEl.classList.remove('fade-out');
-
-  let page=1; const per_page=100; let all=[];
-
-  try{
-
-    while(true){
-
-      // 注意：使用 API_BASE_COMP
-
-      const url=`${API_BASE_COMP}?country_iso2=TW&per_page=${per_page}&page=${page}`;
-
-      const res=await fetch(url);
-
-      if(!res.ok) throw new Error('HTTP '+res.status);
-
-      const data=await res.json();
-
-      if(!Array.isArray(data)||data.length===0) break;
-
-      all=all.concat(data);
-
-      statusEl.textContent=`已取得 ${all.length} 筆（第 ${page} 頁）...`;
-
-      if(data.length<per_page) break;
-
-      page+=1;
-
-      await new Promise(r=>setTimeout(r,150));
-
-    }
-
-    statusEl.classList.add('fade-out');
-
-    await new Promise(r => setTimeout(r, 300));
-
-    statusEl.textContent=`全部載入完成，共 ${all.length} 筆資料。`;
-
-    statusEl.classList.remove('fade-out');
-
-    return all;
-
-  }catch(err){
-
-    statusEl.classList.add('fade-out');
-
-    await new Promise(r => setTimeout(r, 300));
-
-    console.error(err); 
-
-    statusEl.textContent='無法完整取得 WCA API：'+err.message; 
-
-    statusEl.classList.remove('fade-out');
-
-    throw err;
-
-  }
-
-}
-
-
-
-let cache=null;
-
-
-
-function renderGroups(groupsObj,q){
-
-  Array.from(resultsEl.querySelectorAll('.item')).forEach(item => {
-
-    if (item.cleanup) item.cleanup();
-
-  });
-
-  
-
-  resultsEl.innerHTML='';
-
-  const {groups,sortedYears}=groupsObj;
-
-  sortedYears.forEach((year, yearIndex)=>{
-
-    const yearDiv=document.createElement('div'); yearDiv.className='year-group';
-
-    const title=document.createElement('div'); 
-
-    title.className='year-title'; 
-
-    title.innerHTML=`📅 ${year} 年`;
-
-    title.style.animationDelay = `${yearIndex * 0.1}s`; 
-
-    yearDiv.appendChild(title);
-
-    const list=document.createElement('div');
-
-    const items=groups[year].filter(c=>{
-
-      if(!q) return true;
-
-      const ql=q.toLowerCase();
-
-      return (c.name&&c.name.toLowerCase().includes(ql))||(c.city&&c.city.toLowerCase().includes(ql))||(c.id&&c.id.toLowerCase().includes(ql))||(c.start_date&&new Date(c.start_date).getFullYear().toString().includes(ql));
-
-    });
-
-    if(items.length===0){
-
-      const none=document.createElement('div'); none.className='small'; none.textContent='（無符合項目）'; list.appendChild(none);
-
-    }else{
-
-      items.sort((a,b)=>new Date(b.start_date)-new Date(a.start_date)).forEach(c=>list.appendChild(renderItem(c)));
-
-    }
-
-    yearDiv.appendChild(list);
-
-    resultsEl.appendChild(yearDiv);
-
-  });
-
-}
-
-
-
-let searchTimer=null;
-
-function liveSearch(){
-
-  const q=qEl.value.trim();
-
-  if(!cache) return;
-
-  clearTimeout(searchTimer);
-
-  searchTimer=setTimeout(async ()=>{
-
-    statusEl.classList.add('fade-out');
-
-    await new Promise(r => setTimeout(r, 300));
-
-
-
-    renderGroups(groupByYear(cache),q); 
-
-    const filteredCount = Array.from(resultsEl.querySelectorAll('.item')).length;
-
-    statusEl.textContent=`已過濾出 ${filteredCount} 筆結果（搜尋：\"${q||'全部'}\"）`;
-
-    statusEl.classList.remove('fade-out');
-
-  },180);
-
-}
-
-
-
-qEl.addEventListener('input',liveSearch);
-
-clearBtn.addEventListener('click',async ()=>{
-
-    qEl.value=''; qEl.focus(); 
-
-    if(cache){
-
-        statusEl.classList.add('fade-out');
-
-        await new Promise(r => setTimeout(r, 300));
-
-
-
-        renderGroups(groupByYear(cache),''); 
-
-        statusEl.textContent=`已清除篩選，共 ${cache.length} 筆資料。`;
-
-        statusEl.classList.remove('fade-out');
-
-    }
-
-});
-
-
-
-
-
-// ----------------------------------------------------------------
-
-// --- 初始化與主題切換 ---
-
-// ----------------------------------------------------------------
-
-
-
-sunBtn.addEventListener('click',()=>{document.documentElement.classList.remove('dark'); localStorage.setItem('wca_theme','light');});
-
-moonBtn.addEventListener('click',()=>{document.documentElement.classList.add('dark'); localStorage.setItem('wca_theme','dark');});
-
-if(localStorage.getItem('wca_theme')==='dark') document.documentElement.classList.add('dark');
-
-else document.documentElement.classList.remove('dark');
-
-
-
-(async()=>{
-
-  // 1. 載入比賽資料
-
-  cache=await fetchAllTaiwanCompetitions();
-
-  const seen=new Set();
-
-  // 過濾重複的比賽ID
-
-  cache=cache.filter(c=>{if(seen.has(c.id)) return false; seen.add(c.id); return true;});
-
-  renderGroups(groupByYear(cache),'');
-
-
-
-  // 2. 預設顯示比賽面板
-
-  switchTab('competitions'); 
-
-})();
-
-</script>
+        qEl.addEventListener('input', liveSearch);
+        clearBtn.addEventListener('click', async () => {
+            qEl.value = '';
+            qEl.focus();
+            if (cache) {
+                statusEl.classList.add('fade-out');
+                await new Promise(r => setTimeout(r, 300));
+
+                renderGroups(groupByYear(cache), '');
+                statusEl.textContent = `已清除篩選，共 ${cache.length} 筆資料。`;
+                statusEl.classList.remove('fade-out');
+            }
+        });
+
+
+        // ----------------------------------------------------------------
+        // --- 魔方計時器功能 (長按 2 秒、動畫與儲存) ---
+        // ----------------------------------------------------------------
+
+        // 格式化時間 (分鐘:秒.毫秒)
+        function getFormattedTime(time) {
+            const ms = time % 1000;
+            const s = Math.floor(time / 1000) % 60;
+            const m = Math.floor(time / 60000) % 60;
+
+            const formattedMs = String(Math.floor(ms / 10)).padStart(2, '0');
+            const formattedS = String(s).padStart(2, '0');
+            const formattedM = m > 0 ? `${m}:` : '';
+
+            return `${formattedM}${formattedS}.${formattedMs}`;
+        }
+
+        // 設置狀態訊息 (帶有淡入淡出動畫)
+        function setTimerStatus(message) {
+            clearTimeout(statusTimeout);
+            timerStatus.classList.add('fade-out');
+            statusTimeout = setTimeout(() => {
+                timerStatus.innerHTML = message;
+                timerStatus.classList.remove('fade-out');
+            }, 200);
+        }
+
+        function startTimer() {
+            startTime = new Date().getTime();
+            tInterval = setInterval(updateTime, 10);
+            running = true;
+            setTimerStatus('計時中... 按下 **空白鍵** 停止');
+        }
+
+        // 停止計時 (包含儲存邏輯)
+        function stopTimer() {
+            clearInterval(tInterval);
+            running = false;
+            readyToStart = false; // 確保停止後是完全停止狀態
+
+            if (difference > 0) {
+                savedTimes.push(difference);
+                saveTimes();
+                renderTimes();
+            }
+
+            setTimerStatus(`完成！用時 **${getFormattedTime(difference)}**。按下 **Enter** 重設，或 **空白鍵** 開始新一輪。`);
+        }
+
+        function updateTime() {
+            updatedTime = new Date().getTime();
+            difference = updatedTime - startTime;
+            timerDisplay.textContent = getFormattedTime(difference);
+
+            // 觸發數字跳動動畫
+            timerDisplay.style.animation = 'none';
+            void timerDisplay.offsetWidth;
+            timerDisplay.style.animation = 'timer-digit-pop 0.1s ease-out';
+        }
+
+        // 重置計時 (確保也清除長按計時器)
+        function resetTimer() {
+            clearInterval(tInterval);
+            clearTimeout(pressTimer);
+            pressTimer = null;
+            running = false;
+            difference = 0;
+            timerDisplay.textContent = '0.00';
+            setTimerStatus('按下 **空白鍵** 2 秒後開始計時');
+            timerDisplay.classList.remove('ready');
+            readyToStart = false; // 設置為 false，代表完全停止
+            timerDisplay.style.animation = 'none';
+        }
+
+        // ----------------------------------------------------------------
+        // --- 鍵盤控制 (長按 2 秒啟動邏輯) ---
+        // ----------------------------------------------------------------
+        document.addEventListener('keydown', (e) => {
+            // 只有在計時器面板為 active 且不是在輸入框時才響應
+            if (!timerPanelEl.classList.contains('active') || document.activeElement.tagName === 'INPUT') {
+                return;
+            }
+
+            if (e.key === ' ' || e.code === 'Space') {
+                e.preventDefault();
+
+                if (running) {
+                    stopTimer();
+                    return;
+                }
+
+                // 如果計時器已停止且未在準備中，則開始準備
+                if (!running && readyToStart === false) {
+
+                    // 觸發按鍵反饋動畫
+                    timerContainer.classList.add('key-pressed');
+
+                    // 記錄按鍵開始時間
+                    pressStartTime = new Date().getTime();
+
+                    // 進入準備狀態 (默認顏色)
+                    timerDisplay.textContent = '0.00';
+                    setTimerStatus('持續按住 **空白鍵** 2 秒以準備...');
+
+                    // 設定 2 秒後進入 "Ready" 狀態 (綠色)
+                    pressTimer = setTimeout(() => {
+                        readyToStart = true; // 標記為已準備好
+                        timerDisplay.classList.add('ready'); // 變綠
+                        setTimerStatus('🟢 READY! 鬆開開始計時。');
+                    }, REQUIRED_PRESS_TIME);
+
+                    // 標記為正在等待長按
+                    readyToStart = 'pending';
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                timerContainer.classList.add('key-pressed');
+                resetTimer();
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (!timerPanelEl.classList.contains('active') || document.activeElement.tagName === 'INPUT') {
+                return;
+            }
+
+            timerContainer.classList.remove('key-pressed');
+
+            if (e.key === ' ' || e.code === 'Space') {
+                e.preventDefault();
+
+                if (running) {
+                    return;
+                }
+
+                // 清除長按計時器
+                clearTimeout(pressTimer);
+                pressTimer = null;
+
+                if (readyToStart === true) {
+                    // 情況 1: 已經按夠 2 秒並變綠 (readyToStart === true)
+                    startTimer();
+                    timerDisplay.classList.remove('ready');
+                    readyToStart = false;
+
+                } else if (readyToStart === 'pending' || new Date().getTime() - pressStartTime < REQUIRED_PRESS_TIME) {
+                    // 情況 2: 未按夠 2 秒
+                    resetTimer();
+                    setTimerStatus('未達 2 秒。請持續按住 **空白鍵** 2 秒以啟動。');
+                }
+            }
+            if (e.key === 'Enter') {
+                timerContainer.classList.remove('key-pressed');
+            }
+        });
+
+
+        // ----------------------------------------------------------------
+        // --- 成績儲存與顯示邏輯 ---
+        // ----------------------------------------------------------------
+
+        function loadTimes() {
+            try {
+                const json = localStorage.getItem('twcube_times');
+                savedTimes = json ? JSON.parse(json) : [];
+            } catch (e) {
+                console.error("載入成績失敗", e);
+                savedTimes = [];
+            }
+            renderTimes();
+        }
+
+        function saveTimes() {
+            localStorage.setItem('twcube_times', JSON.stringify(savedTimes));
+        }
+
+        // 格式化毫秒數為時長 (只顯示秒.毫秒，用於列表)
+        function formatTimeValue(timeInMs) {
+            const s = Math.floor(timeInMs / 1000) % 60;
+            const ms = timeInMs % 1000;
+            const formattedMs = String(Math.floor(ms / 10)).padStart(2, '0');
+            const formattedS = String(s).padStart(1, '0');
+            return `${formattedS}.${formattedMs}`;
+        }
+
+        function renderTimes() {
+            timesListEl.innerHTML = '';
+
+            if (savedTimes.length === 0) {
+                timesListEl.innerHTML = '<div class="small meta" style="text-align: center;">尚無成績紀錄。</div>';
+                statsSummaryEl.textContent = '總成績筆數：0';
+                return;
+            }
+
+            const sorted = [...savedTimes].sort((a, b) => a - b);
+            const bestTime = sorted[0];
+            const totalTime = savedTimes.reduce((sum, time) => sum + time, 0);
+            const averageTime = totalTime / savedTimes.length;
+
+            statsSummaryEl.innerHTML = `
+                總筆數：**${savedTimes.length}** | 
+                最佳單次 (PB)：**${formatTimeValue(bestTime)}** | 
+                平均：**${formatTimeValue(averageTime)}**
+            `;
+
+            const displayTimes = savedTimes.slice(-10).reverse();
+
+            displayTimes.forEach((time, index) => {
+                const timeItem = document.createElement('div');
+                timeItem.className = 'time-item';
+                const rank = savedTimes.length - index;
+
+                if (time === bestTime) {
+                    timeItem.classList.add('best');
+                }
+
+                timeItem.innerHTML = `
+                    <span class="rank">#${rank}</span>
+                    <span>成績:</span>
+                    <span class="value">${formatTimeValue(time)}</span>
+                `;
+                timesListEl.appendChild(timeItem);
+            });
+        }
+
+        clearTimesBtn.addEventListener('click', () => {
+            if (confirm('您確定要清除所有歷史成績嗎？此操作無法恢復！')) {
+                savedTimes = [];
+                saveTimes();
+                renderTimes();
+                resetTimer();
+            }
+        });
+
+
+        // ----------------------------------------------------------------
+        // --- 頁面初始化 ---
+        // ----------------------------------------------------------------
+
+        (async () => {
+            // 1. 載入比賽資料 (模擬)
+            cache = await fetchAllTaiwanCompetitions();
+            renderGroups(groupByYear(cache), '');
+
+            // 2. 載入成績資料
+            loadTimes();
+
+            // 3. 預設顯示比賽面板
+            switchTab('competitions');
+        })();
+    </script>
 
 </body>
 
