@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>TWCUBE網站</title>
+    <title>TWCUBE</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C0A/Q3w7aN33yFz5q81Hk+f/8x/vU4v9i93cT3N2Jz4XyFq7O7Qp5K+fQ95TzE8P/vA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C0A/Q3w7aN33yFz5q81Hk+f/8x/vU4v9i93cT3N2Jz4XyFq7O7Qp5K+f/8x/vU4v9i93cT3N2Jz4XyFq7O7Qp5K+fQ95TzE8P/vA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --bg: #f8fafc;
@@ -30,9 +30,7 @@
             --shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
         }
 
-        /* Base styles */
-        html,
-        body {
+        html, body {
             height: 100%;
             margin: 0;
             font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
@@ -55,14 +53,8 @@
 
         /* Card & Animation */
         @keyframes fadeInSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
@@ -76,24 +68,12 @@
             margin-bottom: 20px;
         }
 
-        [data-theme="dark"] .card {
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        h1 {
-            margin: 0 0 8px;
-            font-size: 20px;
-        }
-
-        p.lead {
-            margin: 0 0 18px;
-            color: var(--muted);
-        }
+        [data-theme="dark"] .card { border: 1px solid rgba(255, 255, 255, 0.04); }
+        h1 { margin: 0 0 8px; font-size: 20px; }
+        p.lead { margin: 0 0 18px; color: var(--muted); }
 
         /* Controls & Inputs */
-        input,
-        button,
-        select {
+        input, button, select {
             padding: 10px 12px;
             border-radius: 8px;
             border: 1px solid rgba(0, 0, 0, 0.06);
@@ -103,103 +83,47 @@
             transition: all 0.2s ease;
         }
 
-        [data-theme="dark"] input,
-        [data-theme="dark"] button,
-        [data-theme="dark"] select {
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        input[type=text]:focus,
-        select:focus {
+        [data-theme="dark"] input, [data-theme="dark"] button, [data-theme="dark"] select { border: 1px solid rgba(255, 255, 255, 0.04); }
+        input[type=text]:focus, select:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
             outline: none;
         }
 
-        button:hover {
-            background: var(--glass);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        .controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 12px;
-        }
+        button:hover { background: var(--glass); transform: translateY(-1px); }
+        button:active { transform: translateY(0); box-shadow: none; }
+        .controls { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
 
         /* Icon Buttons */
         .icon-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            background: transparent;
+            width: 36px; height: 36px; border-radius: 8px; display: inline-flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.06); background: transparent;
             transition: transform 0.2s ease, background 0.2s ease;
         }
 
-        [data-theme="dark"] .icon-btn {
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .icon-btn:active {
-            transform: rotate(15deg);
-            background: var(--glass);
-        }
+        [data-theme="dark"] .icon-btn { border: 1px solid rgba(255, 255, 255, 0.04); }
+        .icon-btn:active { transform: rotate(15deg); background: var(--glass); }
 
         /* Tab Navigation */
-        .tab-nav {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 0;
-            border-bottom: 1px solid var(--glass);
-        }
-
+        .tab-nav { display: flex; gap: 5px; margin-bottom: 0; border-bottom: 1px solid var(--glass); }
         .tab-button {
-            padding: 10px 15px;
-            border: none;
-            background: var(--glass);
-            color: var(--muted);
-            font-weight: 600;
-            cursor: pointer;
+            padding: 10px 15px; border: none; background: var(--glass);
+            color: var(--muted); font-weight: 600; cursor: pointer;
             border-radius: var(--radius) var(--radius) 0 0;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent; transition: all 0.2s ease;
             margin-bottom: -1px;
         }
 
         .tab-button.active {
-            background: var(--card);
-            color: var(--accent);
-            border: 1px solid var(--glass);
-            border-bottom: 1px solid var(--card);
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
-            z-index: 10;
+            background: var(--card); color: var(--accent);
+            border: 1px solid var(--glass); border-bottom: 1px solid var(--card);
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05); z-index: 10;
         }
 
-        [data-theme="dark"] .tab-button.active {
-            border-bottom: 1px solid var(--bg);
-        }
-
-        .tab-content {
-            display: none;
-            min-height: 300px;
-            padding-top: 5px;
-            /* 讓內容區塊看起來是從 Tab 按鈕下面開始的 */
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        [data-theme="dark"] .tab-button.active { border-bottom: 1px solid var(--bg); }
+        .tab-content { display: none; min-height: 300px; padding-top: 5px; }
+        .tab-content.active { display: block; }
 
         /* WCA List Styles */
         .item {
@@ -222,197 +146,148 @@
             border-color: var(--accent);
         }
 
-        .meta {
-            color: var(--muted);
-            font-size: 13px
+        .meta { color: var(--muted); font-size: 13px }
+        .small { font-size: 13px; color: var(--muted) }
+        
+        /* WCA List Year Grouping Styles */
+        .year-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--glass);
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInSlideUp 0.6s ease-out forwards;
+        }
+        .year-group {
+            margin-bottom: 30px;
         }
 
-        .small {
-            font-size: 13px;
-            color: var(--muted)
+        /* Countdown Lamp */
+        .light-lamp {
+            display: inline-block; width: 8px; height: 8px; border-radius: 50%; 
+            margin-right: 5px; animation: pulse 1.5s infinite;
+        }
+        .light-lamp.red { background-color: #dc2626; box-shadow: 0 0 5px #dc2626; }
+        .light-lamp.green { background-color: #22c55e; box-shadow: 0 0 5px #22c55e; }
+        .light-lamp.yellow { background-color: #facc15; box-shadow: 0 0 5px #facc15; }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
 
         /* Timer Styles */
         #timerContainer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            margin-bottom: 20px;
-            border-radius: var(--radius);
-            border: 1px solid var(--glass);
-            transition: all 0.3s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 40px 20px; margin-bottom: 20px; border-radius: var(--radius);
+            border: 1px solid var(--glass); transition: all 0.3s ease;
         }
 
-        @keyframes timer-digit-pop {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
+        @keyframes timer-digit-pop { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
         @keyframes button-press-feedback {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
-            }
-            50% {
-                transform: scale(0.99);
-                box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.4);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
-            }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+            50% { transform: scale(0.99); box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
         }
 
         #timerDisplay {
-            font-size: 80px;
-            font-weight: 200;
-            color: var(--text);
-            margin: 0 0 10px 0;
-            font-family: monospace;
+            font-size: 80px; font-weight: 200; color: var(--text);
+            margin: 0 0 10px 0; font-family: monospace;
             transition: color 0.1s ease-out, transform 0.05s ease-out;
         }
 
-        #timerDisplay.ready {
-            color: #22c55e;
-            /* 綠色 */
-        }
-
-        #timerStatus {
-            color: var(--muted);
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        #timerStatus.fade-out {
-            opacity: 0;
-        }
-
-        #timerContainer.key-pressed {
-            animation: button-press-feedback 0.3s ease-out forwards;
-        }
+        #timerDisplay.ready { color: #22c55e; /* 綠色 */ }
+        #timerStatus { color: var(--muted); opacity: 1; transition: opacity 0.3s ease; }
+        #timerStatus.fade-out { opacity: 0; }
+        #timerContainer.key-pressed { animation: button-press-feedback 0.3s ease-out forwards; }
 
         /* Score List Styles */
         .time-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            border-radius: 6px;
-            background: var(--glass);
-            font-weight: 500;
-            transition: background 0.2s ease;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 12px; margin-bottom: 6px; border-radius: 6px;
+            background: var(--glass); font-weight: 500; transition: background 0.2s ease;
         }
-
-        .time-item:hover {
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .time-item .rank {
-            color: var(--accent);
-            font-weight: 700;
-            width: 30px;
-        }
-
-        .time-item .value {
-            flex-grow: 1;
-            font-size: 18px;
-            text-align: right;
-            font-family: monospace;
-        }
-
-        .time-item.best {
-            border: 1px solid var(--warning);
-            background: rgba(250, 204, 21, 0.1);
-        }
-
+        .time-item:hover { background: rgba(6, 182, 212, 0.05); }
+        .time-item .rank { color: var(--accent); font-weight: 700; width: 30px; }
+        .time-item .value { flex-grow: 1; font-size: 18px; text-align: right; font-family: monospace; }
+        .time-item.best { border: 1px solid var(--warning); background: rgba(250, 204, 21, 0.1); }
         .clear-btn-red {
-            background-color: #dc2626;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
+            background-color: #dc2626; color: white; border: none; padding: 8px 15px;
+            border-radius: 8px; cursor: pointer; font-weight: 500;
             transition: background-color 0.2s ease, transform 0.1s ease;
         }
+        .clear-btn-red:hover { background-color: #b91c1c; }
 
-        .clear-btn-red:hover {
-            background-color: #b91c1c;
+        /* Contact Panel Styles */
+        .contact-group {
+            padding: 20px; 
+            border-radius: var(--radius); 
+            background: var(--glass);
+        }
+        .contact-title {
+            font-weight: 600; 
+            font-size: 16px; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid var(--glass); 
+            padding-bottom: 5px;
+        }
+        .info-item {
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+        }
+        .info-item a {
+            color: var(--accent); 
+            text-decoration: none;
+        }
+        .note-box {
+            margin-top: 15px; 
+            padding: 10px; 
+            background: rgba(250, 204, 21, 0.1); 
+            border-radius: 6px; 
+            border-left: 3px solid var(--warning); 
+            font-size: 13px;
         }
 
-        /* Modal Styles (加入黃色) */
+
+        /* Modal Styles */
         .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center;
+            align-items: center; z-index: 1000; opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .modal-backdrop.is-open {
-            opacity: 1;
-            visibility: visible;
-        }
-
+        .modal-backdrop.is-open { opacity: 1; visibility: visible; }
         .modal-content {
-            background-color: var(--card);
-            padding: 30px;
-            border-radius: var(--radius);
-            max-width: 500px;
-            width: 90%;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            /* 新增黃色邊框和陰影 */
+            background-color: var(--card); padding: 30px; border-radius: var(--radius);
+            max-width: 500px; width: 90%; transform: scale(0.9); transition: transform 0.3s ease;
             border: 3px solid var(--warning);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 15px var(--warning);
         }
 
-        .modal-backdrop.is-open .modal-content {
-            transform: scale(1);
-        }
-
+        .modal-backdrop.is-open .modal-content { transform: scale(1); }
         .modal-close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--glass);
-            border: 1px solid var(--muted);
-            border-radius: 4px;
-            width: 30px;
-            height: 30px;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--muted);
-            line-height: 1;
+            position: absolute; top: 10px; right: 10px; background: var(--glass);
+            border: 1px solid var(--muted); border-radius: 4px; width: 30px; height: 30px;
+            font-size: 18px; cursor: pointer; color: var(--muted); line-height: 1;
         }
 
         .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--warning);
-            /* 標題文字也設為黃色 */
-            padding-bottom: 5px;
-            border-bottom: 1px solid var(--glass);
+            font-size: 24px; font-weight: 700; margin-bottom: 20px;
+            color: var(--warning); padding-bottom: 5px; border-bottom: 1px solid var(--glass);
         }
+        .modal-link-btn {
+             display: inline-block; background-color: var(--accent); color: white; padding: 8px 15px; 
+             border-radius: 8px; text-decoration: none; margin-top: 20px; 
+             transition: background-color 0.2s ease;
+        }
+        .modal-link-btn:hover { background-color: #0d9488; }
     </style>
 </head>
 
@@ -425,7 +300,7 @@
             <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
                 <div>
                     <h1>TWCUBE網站</h1>
-                    <p class="lead">TWCUBE是一位台灣的學生架設的網站</p>
+                    <p class="lead">WCA 台灣比賽 🇹🇼</p>
                 </div>
                 <div class="toolbar">
                     <div title="淺色主題（太陽）" id="sunBtn" class="icon-btn">☀️</div>
@@ -457,12 +332,10 @@
             </div>
 
             <div id="timerPanel" class="tab-content">
-
                 <div id="timerContainer">
                     <div id="timerDisplay">0.00</div>
-                    <div id="timerStatus" class="meta small">按下 **空白鍵** 開始 / 停止計時</div>
+                    <div id="timerStatus" class="meta small">按下 **空白鍵** 2 秒後開始計時</div>
                 </div>
-
                 <div id="scorePanel">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <h2>歷史成績 (最新 10 筆)</h2>
@@ -470,45 +343,36 @@
                             🗑️ 清除所有
                         </button>
                     </div>
-
                     <div id="timesList">
                         <div class="small meta" style="text-align: center;">尚無成績紀錄。</div>
                     </div>
-
                     <div id="statsSummary" class="small meta" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--glass);">
                         總成績筆數：0
                     </div>
                 </div>
-
             </div>
 
             <div id="contactPanel" class="tab-content">
                 <h2>建立者個人聯絡方式</h2>
-
                 <div class="contact-panel">
-                    <div class="contact-group" style="padding: 20px; border-radius: var(--radius); background: var(--glass);">
-                        <div class="contact-title" style="font-weight: 600; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid var(--glass); padding-bottom: 5px;">網站建立與維護者</div>
-
-                        <div class="info-item" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                    <div class="contact-group">
+                        <div class="contact-title">網站建立與維護者</div>
+                        <div class="info-item">
                             <i class="fab fa-discord" style="color: #5865F2;"></i>
-                            <span>Discord 邀請連結：<a href="https://discord.gg/y2gxYtmXp7" target="_blank" style="color: var(--accent); text-decoration: none;">https://discord.gg/y2gxYtmXp7</a></span>
+                            <span>Discord 邀請連結：<a href="https://discord.gg/y2gxYtmXp7" target="_blank">https://discord.gg/y2gxYtmXp7</a></span>
                         </div>
-
-                        <div class="info-item" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <div class="info-item">
                             <i class="far fa-envelope" style="color: #ea4335;"></i>
-                            <span>Gmail 電子郵件：<a href="mailto:swxhzop@gmail.com" style="color: var(--accent); text-decoration: none;">swxhzop@gmail.com</a></span>
+                            <span>Gmail 電子郵件：<a href="mailto:swxhzop@gmail.com">swxhzop@gmail.com</a></span>
                         </div>
-
-                        <div class="note-box" style="margin-top: 15px; padding: 10px; background: rgba(250, 204, 21, 0.1); border-radius: 6px; border-left: 3px solid var(--warning); font-size: 13px;">
+                        <div class="note-box">
                             ⚠️ 備註：本站維護者為一名學生，因此回覆可能會比較慢。<br>
                             **建議使用 Discord 聯絡，會比較快速得到回覆。**
                         </div>
                     </div>
-
                     <p class="small" style="margin-top: 20px; color: var(--muted);">
                         如果您對本網站有任何建議、合作意向或技術問題，歡迎透過以上方式聯絡。
                     </p>
-
                 </div>
             </div>
 
@@ -521,11 +385,15 @@
             <button id="modalCloseBtn" class="modal-close-btn" title="關閉視窗">×</button>
             <h2 id="modalTitle" class="modal-title">比賽名稱</h2>
             <div id="modalInfo" class="modal-info"></div>
-            </div>
+            <a id="modalLink" class="modal-link-btn" href="#" target="_blank">前往 TWCUBE 活動頁面 →</a>
+        </div>
     </div>
 
 
     <script>
+        // WCA API 基礎 URL
+        const API_BASE_COMP = 'https://www.worldcubeassociation.org/api/v0/competitions';
+
         // --- 核心 DOM 元素 ---
         const sunBtn = document.getElementById('sunBtn');
         const moonBtn = document.getElementById('moonBtn');
@@ -541,6 +409,7 @@
         const modalCloseBtn = document.getElementById('modalCloseBtn');
         const modalTitle = document.getElementById('modalTitle');
         const modalInfo = document.getElementById('modalInfo');
+        const modalLink = document.getElementById('modalLink');
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
         const timerContainer = document.getElementById('timerContainer');
@@ -556,11 +425,11 @@
         let difference = 0;
         let tInterval;
         let running = false;
-        let readyToStart = false; // true: 已達 2s, 'pending': 長按中, false: 初始狀態
+        let readyToStart = false;
         let statusTimeout;
-        let pressStartTime = 0; // 記錄空白鍵按下的時間戳
-        let pressTimer = null; // 用於計時 2 秒的計時器 ID
-        const REQUIRED_PRESS_TIME = 2000; // 2000 毫秒 = 2 秒
+        let pressStartTime = 0;
+        let pressTimer = null;
+        const REQUIRED_PRESS_TIME = 2000;
 
 
         // ----------------------------------------------------------------
@@ -576,6 +445,10 @@
 
             if (targetTab === 'competitions') {
                 competitionsPanelEl.classList.add('active');
+                if (cache) {
+                    statusEl.textContent = `已載入 ${cache.length} 筆比賽資料。`;
+                    statusEl.classList.remove('fade-out');
+                }
             } else if (targetTab === 'timer') {
                 timerPanelEl.classList.add('active');
                 if (!running && readyToStart !== 'pending') {
@@ -597,40 +470,82 @@
             localStorage.setItem('wca_theme', theme);
         }
 
-        sunBtn.addEventListener('click', () => {
-            setTheme('light');
-        });
-        moonBtn.addEventListener('click', () => {
-            setTheme('dark');
-        });
+        sunBtn.addEventListener('click', () => { setTheme('light'); });
+        moonBtn.addEventListener('click', () => { setTheme('dark'); });
 
         const initialTheme = localStorage.getItem('wca_theme') || 'light';
         setTheme(initialTheme);
 
 
         // ----------------------------------------------------------------
-        // --- WCA 比賽查詢邏輯 (模擬) ---
+        // --- WCA 比賽查詢邏輯 (實時 API + Modal) ---
         // ----------------------------------------------------------------
 
         function formatDateRange(start, end) {
             try {
-                const s = new Date(start).toLocaleDateString('zh-TW');
-                const e = new Date(end).toLocaleDateString('zh-TW');
+                const s = new Date(start).toLocaleDateString();
+                const e = new Date(end).toLocaleDateString();
                 return s === e ? s : `${s} — ${e}`;
             } catch (e) {
                 return start || ''
             }
         }
+        
+        // *** 核心修正函數：重組 WCA ID，將結尾的年份移至最前 (用於 TWCUBE 連結) ***
+        function reformatWCAId(wcaId) {
+            if (!wcaId) return '';
+            // 嘗試匹配 WCA ID 結尾的四位數字年份 (例如: TaipeiOpen2025)
+            const match = wcaId.match(/(\d{4})$/); 
+            
+            if (match) {
+                const year = match[1]; // 提取年份 (例如: 2025)
+                const namePart = wcaId.substring(0, wcaId.length - 4); // 提取名稱部分 (例如: TaipeiOpen)
+                // 重組格式: [年份][名稱]
+                return `${year}${namePart}`; // 例如: 2025TaipeiOpen
+            }
+            // 如果沒有匹配到結尾年份，則直接返回原始代碼
+            return wcaId;
+        }
+        // *** 修正結束 ***
 
-        function showModal(c) {
+        async function showModal(c) {
             modalTitle.textContent = c.name;
             modalInfo.innerHTML = `
-                <div style="margin-bottom: 10px;"><strong>地點：</strong> ${c.city}, ${c.country_name}</div>
-                <div style="margin-bottom: 20px;"><strong>日期：</strong> ${formatDateRange(c.start_date, c.end_date)}</div>
-                <div class="small" style="font-style: italic;">🏆 <strong>備註：</strong> 點擊比賽可前往 WCA 官方頁面查看詳細資訊。</div>
+                <div><strong>地點：</strong> ${c.city}, ${c.country_name}</div>
+                <div><strong>代碼：</strong> ${c.id}</div>
+                <div><strong>日期：</strong> ${formatDateRange(c.start_date, c.end_date)}</div>
+                <div><strong>主辦方：</strong> ${c.organizer || c.organizer_name || '-'}</div>
+                <div><strong>狀態：</strong> ${c.registration_open ? '✅ 報名開放中' : '❌ 報名尚未開放'}</div>
+                <div id="modalRecordStatus" style="margin-top: 15px; border-top: 1px solid var(--glass); padding-top: 10px;">
+                    <strong>紀錄機會：</strong> 載入中...
+                </div>
             `;
+
+            // *** 修正應用：使用 reformatWCAId 調整 WCA ID 格式來生成 TWCUBE 連結 ***
+            const reformattedId = reformatWCAId(c.id);
+            modalLink.href = `https://cubing-tw.net/event/${reformattedId}`;
+            // *** 修正結束 ***
+
+            // 顯示 Modal
             modalBackdrop.classList.add('is-open');
             document.body.style.overflow = 'hidden';
+
+            // Google 搜索判斷紀錄機會 (簡化模擬邏輯)
+            const recordStatusEl = document.getElementById('modalRecordStatus');
+
+            let statusText = '🏆 <strong>國家紀錄 (NR)</strong>：可挑戰';
+
+            // 簡化模擬邏輯
+            if (c.name.toLowerCase().includes('championship')) {
+                statusText = '🌎 <strong>洲際紀錄 (CR)</strong>：可挑戰<br>' + statusText;
+            }
+            if (c.name.toLowerCase().includes('world')) {
+                statusText = '👑 <strong>世界紀錄 (WR)</strong>：可挑戰<br>' + statusText;
+            }
+
+            // 模擬載入時間後顯示結果
+            await new Promise(r => setTimeout(r, 500));
+            recordStatusEl.innerHTML = `<strong>紀錄機會：</strong><br>${statusText}`;
         }
 
         function closeModal() {
@@ -638,42 +553,90 @@
             document.body.style.overflow = '';
         }
 
+        // 關閉 Modal 的事件監聽器
         modalCloseBtn.addEventListener('click', closeModal);
         modalBackdrop.addEventListener('click', (e) => {
-            if (e.target === modalBackdrop) closeModal();
+            if (e.target === modalBackdrop) {
+                closeModal();
+            }
         });
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalBackdrop.classList.contains('is-open')) closeModal();
+            if (e.key === 'Escape' && modalBackdrop.classList.contains('is-open')) {
+                closeModal();
+            }
         });
 
 
         function renderItem(c) {
             const div = document.createElement('div');
             div.className = 'item';
-            div.addEventListener('click', () => {
-                showModal(c)
-            });
+
+            div.addEventListener('click', () => showModal(c));
+
+            // 修正：將年份放在顯示名稱前面 (上次修正)
+            const competitionYear = c.start_date ? new Date(c.start_date).getFullYear() : '未知';
+            const displayTitle = `${competitionYear} ${c.name}`;
 
             const left = document.createElement('div');
-            left.innerHTML = `<div style="font-weight:600">${c.name}</div>
-                <div class="meta">${c.city||'-'}, ${c.country_name||'-'} • ${formatDateRange(c.start_date,c.end_date)}</div>
+            left.innerHTML = `
+                <div style="font-weight:600; font-size: 16px;">${displayTitle}</div> 
+                <div class="meta" style="font-size: 14px; color: var(--text);">
+                    📍 ${c.city||'-'}, ${c.country_name||'-'}
+                    <span class="small" style="margin-left: 10px; color: var(--muted);">
+                        • ${formatDateRange(c.start_date, c.end_date)}
+                    </span>
+                </div>
                 <div class="small">主辦：${c.organizer||c.organizer_name||'-'}</div>`;
 
             const cdDiv = document.createElement('div');
             cdDiv.className = 'countdown';
+            const lamp = document.createElement('span');
+            lamp.className = 'light-lamp';
             const start = new Date(c.start_date);
-            const now = new Date();
+            const end = new Date(c.end_date);
+            let intervalId;
 
-            if (now > start) {
-                cdDiv.innerHTML = '<span style="color: #dc2626; font-weight: bold;">已結束</span>';
-            } else {
+            function updateCountdown() {
+                const now = new Date();
+                if (now > end) {
+                    lamp.className = 'light-lamp red';
+                    cdDiv.textContent = '比賽已結束';
+                    clearInterval(intervalId);
+                    return;
+                }
+
                 const diff = start - now;
-                const d = Math.floor(diff / 86400000);
-                cdDiv.innerHTML = `<span style="color: #22c55e; font-weight: bold;">${d}天後開始</span>`;
+                if (diff > 0) {
+                    const d = Math.floor(diff / 86400000);
+                    const h = String(Math.floor(diff % 86400000 / 3600000)).padStart(2, '0');
+                    const m = String(Math.floor(diff % 3600000 / 60000)).padStart(2, '0');
+                    const s = String(Math.floor(diff % 60000 / 1000)).padStart(2, '0');
+
+                    if (c.registration_open) {
+                        lamp.className = 'light-lamp green';
+                    } else if (diff < 7 * 86400000) {
+                        lamp.className = 'light-lamp yellow';
+                    } else {
+                        lamp.className = 'light-lamp red';
+                    }
+
+                    cdDiv.textContent = `距離開始：${d}天 ${h}時 ${m}分 ${s}秒`;
+                } else {
+                    lamp.className = 'light-lamp green';
+                    cdDiv.textContent = '比賽進行中';
+                }
+
+                cdDiv.prepend(lamp);
             }
+
+            updateCountdown();
+            intervalId = setInterval(updateCountdown, 1000);
+
+            div.cleanup = () => clearInterval(intervalId);
 
             div.appendChild(left);
             div.appendChild(cdDiv);
+
             return div;
         }
 
@@ -684,49 +647,69 @@
                 if (!groups[year]) groups[year] = [];
                 groups[year].push(c);
             });
+            // 確保最新的年份在前 (倒序排列)
             const sortedYears = Object.keys(groups).sort((a, b) => b - a);
-            return {
-                groups,
-                sortedYears
-            };
+            return { groups, sortedYears };
         }
 
+        // 確保在失敗時返回模擬數據，避免 cache = null
         async function fetchAllTaiwanCompetitions() {
-            // 使用模擬數據
-            statusEl.textContent = '使用模擬數據：台灣 WCA 賽事';
-            return [
-                {
-                    id: 'TaiwanChampionship2025',
-                    name: '2025 台灣魔方錦標賽',
-                    city: 'Taipei',
-                    country_name: 'Taiwan',
-                    start_date: '2025-08-15',
-                    end_date: '2025-08-17',
-                    organizer_name: 'TWCUBE',
-                    registration_open: true
-                },
-                {
-                    id: 'KaohsiungOpen2024',
-                    name: '高雄夏季公開賽',
-                    city: 'Kaohsiung',
-                    country_name: 'Taiwan',
-                    start_date: '2024-06-22',
-                    end_date: '2024-06-23',
-                    organizer_name: 'WCA TW',
-                    registration_open: false
-                },
-                {
-                    id: 'TainanWinter2023',
-                    name: '台南冬季挑戰賽',
-                    city: 'Tainan',
-                    country_name: 'Taiwan',
-                    start_date: '2023-12-10',
-                    end_date: '2023-12-10',
-                    organizer_name: 'Local Group',
-                    registration_open: false
+            statusEl.classList.add('fade-out');
+            await new Promise(r => setTimeout(r, 300));
+
+            statusEl.textContent = '正在從 WCA 取得台灣比賽（逐頁抓取…）';
+            statusEl.classList.remove('fade-out');
+            let page = 1;
+            const per_page = 100;
+            let all = [];
+            try {
+                while (true) {
+                    const url = `${API_BASE_COMP}?country_iso2=TW&per_page=${per_page}&page=${page}`;
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const data = await res.json();
+                    if (!Array.isArray(data) || data.length === 0) break;
+                    all = all.concat(data);
+                    statusEl.textContent = `已取得 ${all.length} 筆（第 ${page} 頁）...`;
+                    if (data.length < per_page) break;
+                    page += 1;
+                    await new Promise(r => setTimeout(r, 150));
                 }
-            ];
+                statusEl.classList.add('fade-out');
+                await new Promise(r => setTimeout(r, 300));
+                statusEl.textContent = `✅ 全部載入完成，共 ${all.length} 筆資料。`;
+                statusEl.classList.remove('fade-out');
+                return all;
+            } catch (err) {
+                statusEl.classList.add('fade-out');
+                await new Promise(r => setTimeout(r, 300));
+                console.error("WCA API 載入失敗:", err);
+                statusEl.textContent = '❌ 無法完整取得 WCA API (顯示模擬數據)：' + err.message;
+                statusEl.classList.remove('fade-out');
+
+                // 返回模擬數據列表
+                return [{
+                    id: 'TaiwanMock2025',
+                    name: 'WCA 數據載入失敗 - 模擬比賽',
+                    city: '請透過網址存取',
+                    country_name: 'Taiwan',
+                    start_date: '2025-12-15',
+                    end_date: '2025-12-17',
+                    organizer_name: 'Mock Org',
+                    registration_open: true
+                }, {
+                    id: 'TaiwanMock2024',
+                    name: '已結束模擬比賽',
+                    city: '請透過網址存取',
+                    country_name: 'Taiwan',
+                    start_date: '2024-05-01',
+                    end_date: '2024-05-03',
+                    organizer_name: 'Mock Org',
+                    registration_open: false
+                }];
+            }
         }
+
 
         function renderGroups(groupsObj, q) {
             Array.from(resultsEl.querySelectorAll('.item')).forEach(item => {
@@ -738,6 +721,8 @@
                 groups,
                 sortedYears
             } = groupsObj;
+            let totalFilteredCount = 0;
+
             sortedYears.forEach((year, yearIndex) => {
                 const yearDiv = document.createElement('div');
                 yearDiv.className = 'year-group';
@@ -745,26 +730,30 @@
                 title.className = 'year-title';
                 title.innerHTML = `📅 ${year} 年`;
                 title.style.animationDelay = `${yearIndex * 0.1}s`;
-                yearDiv.appendChild(title);
+
                 const list = document.createElement('div');
+
                 const items = groups[year].filter(c => {
                     if (!q) return true;
                     const ql = q.toLowerCase();
                     return (c.name && c.name.toLowerCase().includes(ql)) || (c.city && c.city.toLowerCase().includes(ql)) || (c.id && c.id.toLowerCase().includes(ql)) || (c.start_date && new Date(c.start_date).getFullYear().toString().includes(ql));
                 });
-                if (items.length === 0) {
-                    const none = document.createElement('div');
-                    none.className = 'small meta';
-                    none.textContent = '（無符合項目）';
-                    list.appendChild(none);
-                } else {
-                    items.sort((a, b) => new Date(b.start_date) - new Date(a.start_date)).forEach(c => list.appendChild(renderItem(c)));
-                }
-                yearDiv.appendChild(list);
-                resultsEl.appendChild(yearDiv);
-            });
-        }
 
+                if (items.length > 0) {
+                    yearDiv.appendChild(title); // 有項目才顯示年份標題
+                    totalFilteredCount += items.length;
+                    items.sort((a, b) => new Date(b.start_date) - new Date(a.start_date)).forEach(c => list.appendChild(renderItem(c)));
+                    yearDiv.appendChild(list);
+                    resultsEl.appendChild(yearDiv);
+                }
+            });
+
+            if (totalFilteredCount === 0 && cache && cache.length > 0) {
+                resultsEl.innerHTML = '<div class="small meta" style="text-align: center; margin-top: 30px;">（沒有找到符合「' + q + '」的比賽）</div>';
+            } else if (cache === null) {
+                resultsEl.innerHTML = '<div class="small meta" style="text-align: center; margin-top: 30px;">（比賽資料載入中或載入失敗）</div>';
+            }
+        }
 
         let searchTimer = null;
 
@@ -802,7 +791,6 @@
         // --- 魔方計時器功能 (長按 2 秒、動畫與儲存) ---
         // ----------------------------------------------------------------
 
-        // 格式化時間 (分鐘:秒.毫秒)
         function getFormattedTime(time) {
             const ms = time % 1000;
             const s = Math.floor(time / 1000) % 60;
@@ -815,7 +803,6 @@
             return `${formattedM}${formattedS}.${formattedMs}`;
         }
 
-        // 設置狀態訊息 (帶有淡入淡出動畫)
         function setTimerStatus(message) {
             clearTimeout(statusTimeout);
             timerStatus.classList.add('fade-out');
@@ -832,11 +819,10 @@
             setTimerStatus('計時中... 按下 **空白鍵** 停止');
         }
 
-        // 停止計時 (包含儲存邏輯)
         function stopTimer() {
             clearInterval(tInterval);
             running = false;
-            readyToStart = false; // 確保停止後是完全停止狀態
+            readyToStart = false;
 
             if (difference > 0) {
                 savedTimes.push(difference);
@@ -852,13 +838,11 @@
             difference = updatedTime - startTime;
             timerDisplay.textContent = getFormattedTime(difference);
 
-            // 觸發數字跳動動畫
             timerDisplay.style.animation = 'none';
             void timerDisplay.offsetWidth;
             timerDisplay.style.animation = 'timer-digit-pop 0.1s ease-out';
         }
 
-        // 重置計時 (確保也清除長按計時器)
         function resetTimer() {
             clearInterval(tInterval);
             clearTimeout(pressTimer);
@@ -868,15 +852,12 @@
             timerDisplay.textContent = '0.00';
             setTimerStatus('按下 **空白鍵** 2 秒後開始計時');
             timerDisplay.classList.remove('ready');
-            readyToStart = false; // 設置為 false，代表完全停止
+            readyToStart = false;
             timerDisplay.style.animation = 'none';
         }
 
-        // ----------------------------------------------------------------
         // --- 鍵盤控制 (長按 2 秒啟動邏輯) ---
-        // ----------------------------------------------------------------
         document.addEventListener('keydown', (e) => {
-            // 只有在計時器面板為 active 且不是在輸入框時才響應
             if (!timerPanelEl.classList.contains('active') || document.activeElement.tagName === 'INPUT') {
                 return;
             }
@@ -889,27 +870,19 @@
                     return;
                 }
 
-                // 如果計時器已停止且未在準備中，則開始準備
-                if (!running && readyToStart === false) {
+                if (readyToStart === false) {
 
-                    // 觸發按鍵反饋動畫
                     timerContainer.classList.add('key-pressed');
-
-                    // 記錄按鍵開始時間
                     pressStartTime = new Date().getTime();
-
-                    // 進入準備狀態 (默認顏色)
                     timerDisplay.textContent = '0.00';
                     setTimerStatus('持續按住 **空白鍵** 2 秒以準備...');
 
-                    // 設定 2 秒後進入 "Ready" 狀態 (綠色)
                     pressTimer = setTimeout(() => {
-                        readyToStart = true; // 標記為已準備好
-                        timerDisplay.classList.add('ready'); // 變綠
+                        readyToStart = true;
+                        timerDisplay.classList.add('ready');
                         setTimerStatus('🟢 READY! 鬆開開始計時。');
                     }, REQUIRED_PRESS_TIME);
 
-                    // 標記為正在等待長按
                     readyToStart = 'pending';
                 }
             } else if (e.key === 'Enter') {
@@ -933,18 +906,15 @@
                     return;
                 }
 
-                // 清除長按計時器
                 clearTimeout(pressTimer);
                 pressTimer = null;
 
                 if (readyToStart === true) {
-                    // 情況 1: 已經按夠 2 秒並變綠 (readyToStart === true)
                     startTimer();
                     timerDisplay.classList.remove('ready');
                     readyToStart = false;
 
-                } else if (readyToStart === 'pending' || new Date().getTime() - pressStartTime < REQUIRED_PRESS_TIME) {
-                    // 情況 2: 未按夠 2 秒
+                } else if (readyToStart === 'pending' && new Date().getTime() - pressStartTime < REQUIRED_PRESS_TIME) {
                     resetTimer();
                     setTimerStatus('未達 2 秒。請持續按住 **空白鍵** 2 秒以啟動。');
                 }
@@ -974,13 +944,16 @@
             localStorage.setItem('twcube_times', JSON.stringify(savedTimes));
         }
 
-        // 格式化毫秒數為時長 (只顯示秒.毫秒，用於列表)
         function formatTimeValue(timeInMs) {
-            const s = Math.floor(timeInMs / 1000) % 60;
             const ms = timeInMs % 1000;
+            const s = Math.floor(timeInMs / 1000) % 60;
+            const m = Math.floor(timeInMs / 60000) % 60;
+
             const formattedMs = String(Math.floor(ms / 10)).padStart(2, '0');
             const formattedS = String(s).padStart(1, '0');
-            return `${formattedS}.${formattedMs}`;
+            const formattedM = m > 0 ? `${m}:` : '';
+
+            return `${formattedM}${formattedS}.${formattedMs}`;
         }
 
         function renderTimes() {
@@ -1038,7 +1011,7 @@
         // ----------------------------------------------------------------
 
         (async () => {
-            // 1. 載入比賽資料 (模擬)
+            // 1. 載入比賽資料
             cache = await fetchAllTaiwanCompetitions();
             renderGroups(groupByYear(cache), '');
 
